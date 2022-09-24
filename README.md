@@ -6,6 +6,10 @@ Test assessment
 
 In the project directory, you can run:
 
+### `npm install`
+
+This will install dependecies.
+
 ### `npm start`
 
 Runs the app in the development mode.\

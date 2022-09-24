@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Button, { BackBtn } from '../../components/Button';
@@ -7,52 +7,33 @@ import Input, { SelectInput } from '../../components/Input';
 import Layout from '../../components/Layout';
 import Wrapper from './style';
 import Table from '../../components/Table';
+import moment from 'moment';
 
 type Props = {};
 
 const Shipments = (props: Props) => {
   const navigate = useNavigate();
-  const { customerId } = useParams();
-  const [data, setData] = useState([]);
-
-  // const data = [
-  //   {
-  //     type: 'Export',
-  //     origin: 'NGAPP',
-  //     location: 'Lagos, Nigeria',
-  //     destination: 'Arlington',
-  //     destinationLocation: 'VA, USA',
-  //     date: 'Apr 02, 2022',
-  //     id: '588393926',
-  //   },
-  //   {
-  //     type: 'Import',
-  //     origin: 'Arlington',
-  //     location: 'VA, USA',
-  //     destination: 'NGAPP',
-  //     destinationLocation: 'Lagos, Nigeria',
-  //     date: 'Apr 02, 2022',
-  //     id: '489395758',
-  //   },
-  // ];
+  // const { customerId } = useParams();
+  const [data, setData] = useState<any>([]);
+  const [userInfo, setUserInfo] = useState<any>({});
 
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `https://demo3522726.mockable.io/get_single_customer/${customerId}`
+        `https://demo3522726.mockable.io/get_single_customer/123456789`
       );
-      console.log(res.data);
+      setUserInfo(res.data);
     })();
-  }, [customerId]);
+  }, []);
 
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `https://demo3522726.mockable.io/get_single_customer_shipments/${customerId}`
+        `https://demo3522726.mockable.io/get_single_customer_shipments/123456789`
       );
       setData(res.data);
     })();
-  }, [customerId]);
+  }, []);
 
   return (
     <Layout title='Shipments'>
@@ -64,9 +45,9 @@ const Shipments = (props: Props) => {
           <div className='card'>
             <div className='img' />
             <div className='det'>
-              <div className='name'>Albert Flores</div>
-              <div className='email'>deanna.curtis@example.com</div>
-              <div className='email'>07037656543</div>
+              <div className='name'>{`${userInfo?.first_name} ${userInfo?.last_name}`}</div>
+              <div className='email'>{userInfo?.email}</div>
+              <div className='email'>{userInfo?.phone}</div>
             </div>
             <Button className='btn'>Edit</Button>
           </div>
@@ -101,34 +82,38 @@ const Shipments = (props: Props) => {
           columns={[
             {
               title: 'SHIPMENT TYPE',
-              dataIndex: 'type',
+              dataIndex: 'shipping_type',
               key: 'type',
             },
             {
               title: 'ORIGIN',
-              dataIndex: 'origin',
+              dataIndex: 'origin_port_country',
               key: 'origin',
             },
             {
               title: 'DESTINATION',
-              dataIndex: 'destination',
+              dataIndex: 'destination_port_country',
               key: 'destination',
             },
             {
               title: 'SHIPMENT DATE',
-              dataIndex: 'date',
+              dataIndex: 'shipment_pickup_date',
               key: 'date',
+              render: (shipment_pickup_date: any) =>
+                moment(shipment_pickup_date).format('MMM DD, YYYY'),
             },
             {
               title: 'SHIPING ID',
-              dataIndex: 'id',
+              dataIndex: '_id',
               key: 'id',
             },
             {
-              dataIndex: 'id',
+              dataIndex: '_id',
               key: 'id',
-              render: (id: any) => (
-                <Button onClick={() => navigate(`${id}`)}>View Detail</Button>
+              render: (_id: any) => (
+                <Button onClick={() => navigate(`/shipments_details/${_id}`)}>
+                  View Detail
+                </Button>
               ),
             },
           ]}

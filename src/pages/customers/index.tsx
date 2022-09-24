@@ -11,43 +11,6 @@ type Props = {};
 const Customers = (props: Props) => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  // const data = [
-  //   {
-  //     firstName: 'Adewumi',
-  //     lastName: 'Adebayo',
-  //     email: 'debaryour@gmail.com',
-  //     phone: '08087656543',
-  //     lastLogin: 'Apr 02, 2022',
-  //   },
-  //   {
-  //     firstName: 'Adewumi',
-  //     lastName: 'Adebayo',
-  //     email: 'debaryour@gmail.com',
-  //     phone: '08087656543',
-  //     lastLogin: 'Apr 02, 2022',
-  //   },
-  //   {
-  //     firstName: 'Adewumi',
-  //     lastName: 'Adebayo',
-  //     email: 'debaryour@gmail.com',
-  //     phone: '08087656543',
-  //     lastLogin: 'Apr 02, 2022',
-  //   },
-  //   {
-  //     firstName: 'Adewumi',
-  //     lastName: 'Adebayo',
-  //     email: 'debaryour@gmail.com',
-  //     phone: '08087656543',
-  //     lastLogin: 'Apr 02, 2022',
-  //   },
-  //   {
-  //     firstName: 'Adewumi',
-  //     lastName: 'Adebayo',
-  //     email: 'debaryour@gmail.com',
-  //     phone: '08087656543',
-  //     lastLogin: 'Apr 02, 2022',
-  //   },
-  // ];
 
   useEffect(() => {
     (async () => {
